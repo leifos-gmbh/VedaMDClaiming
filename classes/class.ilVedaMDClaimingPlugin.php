@@ -119,13 +119,21 @@ class ilVedaMDClaimingPlugin extends \ilAdvancedMDClaimingPlugin
 	}
 
 
+	/**
+	 * @return array
+	 */
+	public function getFields()
+	{
+		return $this->fields;
+	}
+
 
 	/**
 	 * @inheritdoc
 	 */
 	public function checkPermission($a_user_id, $a_context_type, $a_context_id, $a_action_id, $a_action_sub_id)
 	{
-		return false;
+
 		$this->logger->info(
 			$a_context_type .' ' . $a_context_id . ' ' . $a_action_id . ' ' . $a_action_sub_id
 		);
