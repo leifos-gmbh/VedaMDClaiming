@@ -12,7 +12,9 @@ class ilVedaMDClaimingPlugin extends \ilAdvancedMDClaimingPlugin
 	 */
 	public static $instance = null;
 
-
+    /**
+     * @var string
+     */
 	public const PLUGIN_ID = 'vedaclaiming';
 
 	/**
@@ -122,7 +124,7 @@ class ilVedaMDClaimingPlugin extends \ilAdvancedMDClaimingPlugin
 	/**
 	 * @return array
 	 */
-	public function getFields()
+	public function getFields() : array
 	{
 		return $this->fields;
 	}
@@ -131,10 +133,9 @@ class ilVedaMDClaimingPlugin extends \ilAdvancedMDClaimingPlugin
 	/**
 	 * @inheritdoc
 	 */
-	public function checkPermission($a_user_id, $a_context_type, $a_context_id, $a_action_id, $a_action_sub_id)
+	public function checkPermission($a_user_id, $a_context_type, $a_context_id, $a_action_id, $a_action_sub_id) : bool
 	{
-
-		$this->logger->info(
+		$this->logger->debug(
 			$a_context_type .' ' . $a_context_id . ' ' . $a_action_id . ' ' . $a_action_sub_id
 		);
 		return true;
@@ -143,7 +144,7 @@ class ilVedaMDClaimingPlugin extends \ilAdvancedMDClaimingPlugin
 	/**
 	 * @inheritdoc
 	 */
-	public function getPluginName()
+	public function getPluginName() : string
 	{
 		return self::PLUGIN_NAME;
 	}
