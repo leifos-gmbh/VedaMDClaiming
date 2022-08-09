@@ -14,7 +14,6 @@ ILIAS Advanced Meta Data. Provides custom meta data fields, required for https:/
     
 - Clone the plugin repository as follows:
      
-      git clone https://github.com/leifos-gmbh/VedaMDClaiming.git
-      git checkout 7
+      git clone --b 7 https://github.com/leifos-gmbh/VedaMDClaiming.git
 
 - Install and Activate it in the ILIAS Administration - Plugins.
