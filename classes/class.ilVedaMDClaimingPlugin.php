@@ -10,7 +10,7 @@ class ilVedaMDClaimingPlugin extends \ilAdvancedMDClaimingPlugin
 	/**
 	 * @var null | \ilAdvancedMDClaimingPlugin
 	 */
-	public static $instance = null;
+	public static ?ilAdvancedMDClaimingPlugin $instance = null;
 
     /**
      * @var string
@@ -70,48 +70,37 @@ class ilVedaMDClaimingPlugin extends \ilAdvancedMDClaimingPlugin
 	public const FIELD_AUSBILDUNGSZUGABSCHNITT = 'Ausbildungszugabschnitt-ID';
 
 
-	/**
-	 * @var null | \ilLogger
-	 */
-	private $logger = null;
+	private ?ilLogger $logger = null;
 
-	/**
-	 * @var null | \ilSetting
-	 */
-	private $settings = null;
+	private ?ilSetting $settings = null;
 
-	/**
-	 * @var array
-	 */
-	private $records = [];
+	private array $records = [];
 
-	/**
-	 * @var array
-	 */
-	private $fields = [];
+	private array $fields = [];
 
 
 
 	/**
 	 * @return \ilVedaMDClaimingPlugin
 	 */
-	public static function getInstance() : \ilVedaMDClaimingPlugin
+	public static function getInstance() : ilVedaMDClaimingPlugin
 	{
-		if(!self::$instance instanceof \ilVedaMDClaimingPlugin) {
-			self::$instance = \ilPluginAdmin::getPluginObject(
-				IL_COMP_SERVICE,
-				'AdvancedMetaData',
-				'amdc',
-				self::PLUGIN_NAME
-			);
-		}
-		return self::$instance;
-	}
+        global $DIC;
+
+        if (self::$instance instanceof self) {
+            return self::$instance;
+        }
+        return self::$instance = new self(
+            $DIC->database(),
+            $DIC["component.repository"],
+            self::PLUGIN_ID
+        );
+    }
 
 	/**
 	 * init plugin (records and fields)
 	 */
-	public function init()
+	protected function init(): void
 	{
 		$this->settings = new \ilSetting(self::SETTINGS_MODULE);
 		$this->records = unserialize($this->settings->get(self::SETTINGS_RECORD_IDS, serialize([])));
@@ -121,9 +110,6 @@ class ilVedaMDClaimingPlugin extends \ilAdvancedMDClaimingPlugin
 	}
 
 
-	/**
-	 * @return array
-	 */
 	public function getFields() : array
 	{
 		return $this->fields;
@@ -133,7 +119,7 @@ class ilVedaMDClaimingPlugin extends \ilAdvancedMDClaimingPlugin
 	/**
 	 * @inheritdoc
 	 */
-	public function checkPermission($a_user_id, $a_context_type, $a_context_id, $a_action_id, $a_action_sub_id) : bool
+	public function checkPermission(int $a_user_id, int $a_context_type, int $a_context_id, int $a_action_id, int $a_action_sub_id) : bool
 	{
 		$this->logger->debug(
 			$a_context_type .' ' . $a_context_id . ' ' . $a_action_id . ' ' . $a_action_sub_id

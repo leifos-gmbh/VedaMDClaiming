@@ -1,11 +1,11 @@
 # VedaUDFClaiming
 ILIAS Advanced Meta Data. Provides custom meta data fields, required for https://github.com/leifos-gmbh/VedaConnector
 
-**Minimum ILIAS Version:**
-7.12   
+**Minimum ILIAS Version:** 
+8.9
 
 **Maximum ILIAS Version:**
-7.99
+8.99
 
 ### Quick Installation Guide
 - Inside the directory:
@@ -14,6 +14,6 @@ ILIAS Advanced Meta Data. Provides custom meta data fields, required for https:/
     
 - Clone the plugin repository as follows:
      
-      git clone --b 7 https://github.com/leifos-gmbh/VedaMDClaiming.git
+      git clone --b 8 https://github.com/leifos-gmbh/VedaMDClaiming.git
 
 - Install and Activate it in the ILIAS Administration - Plugins.
